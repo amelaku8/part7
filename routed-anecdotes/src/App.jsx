@@ -98,6 +98,11 @@ const Anecdote = ({anecdote}) => {
 
 )
 }
+const Notification =  ({notification}) => {
+  return (
+    <p> {notification} </p>
+  )
+}
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -123,12 +128,13 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`a new ancedote '${anecdote.content}' created!`)
+    setTimeout(() => setNotification(""),5000)
   }
 
 
   const anecdoteById = () =>{
-
-    if (match){
+if (match){
     return anecdotes.find(anecdote => anecdote.id == match.params.id)
     }
   }
@@ -148,6 +154,7 @@ const App = () => {
     <div>
       <h1>Software anecdotes</h1>
       <Menu />
+    <Notification notification = {notification}/>
         <Routes>
       <Route path = "/" element = {<AnecdoteList anecdotes={anecdotes} />}/> 
       <Route path = "/about" element = {<About />} />
